@@ -1,9 +1,12 @@
+import "./global.css";
+import Home from "./screens/Home/Home";
+
 const App = () => {
 
   return (
-    <div>
-      Da
-    </div>
+    <>
+      <Home />
+    </>
   );
 };
 
