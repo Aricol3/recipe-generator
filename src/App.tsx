@@ -1,11 +1,11 @@
 import "./global.css";
-import Home from "./screens/Home/Home";
+import MainRoutes from "./routes";
 
 const App = () => {
 
   return (
     <>
-      <Home />
+      <MainRoutes />
     </>
   );
 };

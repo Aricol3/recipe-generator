@@ -13,6 +13,18 @@
   user-select: none;
 }
 
+.suggested-recipes-section {
+  margin: 3rem 0;
+  user-select: none;
+}
+
+.spinner-container {
+  margin: 3rem 0;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+}
+
 .recipe-cards-container {
   display: flex;
   flex-direction: column;
@@ -20,3 +32,4 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
 }
+
