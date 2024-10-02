@@ -8,7 +8,7 @@ export default function HeartButton({
                                     animationScale = 1.05,
                                     animationDuration = 0.05,
                                     inactiveColor = "black",
-                                    activeColor = "plum",
+                                    activeColor = "#64558f",
                                     className,
                                     style
                                   }) {

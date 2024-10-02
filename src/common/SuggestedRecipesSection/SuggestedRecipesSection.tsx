@@ -1,13 +1,13 @@
-import "./SuggestedRecipesSection.scss"
+import "./SuggestedRecipesSection.scss";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { clearRecipesList, setCurrentRecipe } from "../../redux-toolkit/slices/recipesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const SuggestedRecipesSection = () =>{
+const SuggestedRecipesSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const recipesList = useSelector((state:any)=> state.recipes.recipesList);
+  const recipesList = useSelector((state: any) => state.recipes.recipesList);
 
   console.log("THE RECIPES", recipesList);
 
@@ -30,9 +30,12 @@ const SuggestedRecipesSection = () =>{
           />
         ))}
       </div>
-      <button onClick={()=> dispatch(clearRecipesList())}>Clear search</button>
+      <div className="suggested-buttons-container">
+        <button className="suggested-button" onClick={() => console.log("REFRESH")}>I don't like these</button>
+        <button className="suggested-button" onClick={() => dispatch(clearRecipesList())}>Clear search</button>
+      </div>
     </div>
   );
-}
+};
 
 export default SuggestedRecipesSection;
