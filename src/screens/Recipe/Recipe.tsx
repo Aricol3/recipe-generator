@@ -31,6 +31,7 @@ const Recipe = () => {
   return (
     <div className="recipe-container fade-in">
       <div className="recipe-left">
+        <div className="left-container">
         <div className="recipe-image-placeholder">Image</div>
         <div className="recipe-title-time">
           <div>
@@ -41,6 +42,8 @@ const Recipe = () => {
             <HeartButton isActive={active} onClick={handleHeartClick} />
           </div>
         </div>
+        </div>
+
       </div>
       <div className="recipe-right">
         <div className="recipe-ingredients">

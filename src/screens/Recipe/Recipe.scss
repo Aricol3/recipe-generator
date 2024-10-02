@@ -9,6 +9,23 @@
 .recipe-left {
   margin-left: auto;
   width: 35%;
+  position: sticky;
+  top: 20px;
+}
+
+.left-container{
+  position: sticky;
+  top:3rem;
+}
+
+.recipe-image-placeholder {
+  position: sticky;
+  top: 20px;
+}
+
+.recipe-title-time {
+  position: sticky;
+  top: 20px;
 }
 
 .recipe-right {
