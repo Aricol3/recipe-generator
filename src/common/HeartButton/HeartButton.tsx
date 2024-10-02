@@ -15,7 +15,7 @@ export default function HeartButton({
 
   return (
     <svg
-      onClick={() => onClick()}
+      onClick={(e) => onClick(e)}
       viewBox="0 0 17 17"
       className={`heart-icon ${className}`}
       style={{
