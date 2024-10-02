@@ -51,12 +51,14 @@ interface IRecipe {
 }
 
 interface IRecipesState {
+  searchQuery: string;
   recipesList: IRecipe[];
   currentRecipe: IRecipe | null;
   favorites: IRecipe[];
 }
 
 const initialState: IRecipesState = {
+  searchQuery: "",
   recipesList: [],
   currentRecipe: null,
   favorites: []
@@ -67,6 +69,9 @@ export const recipesSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
+    setSearchQuery: (state, action: PayloadAction<any>) => {
+      state.searchQuery = action.payload;
+    },
     setCurrentRecipe: (state, action: PayloadAction<any>) => {
       state.currentRecipe = action.payload;
     },
@@ -114,6 +119,13 @@ export const recipesSlice = createSlice({
   }
 });
 
-export const { setCurrentRecipe, clearRecipesList, loadFavoritesFromLocalStorage, addFavorite, removeFavorite } = recipesSlice.actions;
+export const {
+  setSearchQuery,
+  setCurrentRecipe,
+  clearRecipesList,
+  loadFavoritesFromLocalStorage,
+  addFavorite,
+  removeFavorite
+} = recipesSlice.actions;
 
 export default recipesSlice.reducer;

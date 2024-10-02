@@ -1,6 +1,6 @@
 import "./SuggestedRecipesSection.scss";
 import RecipeCard from "../RecipeCard/RecipeCard";
-import { clearRecipesList, setCurrentRecipe } from "../../redux-toolkit/slices/recipesSlice";
+import { callOpenAI, clearRecipesList, setCurrentRecipe } from "../../redux-toolkit/slices/recipesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -8,9 +8,9 @@ const SuggestedRecipesSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const recipesList = useSelector((state: any) => state.recipes.recipesList);
+  const searchQuery = useSelector((state: any) => state.recipes.searchQuery);
 
   console.log("THE RECIPES", recipesList);
-
 
   return (
     <div className="suggested-recipes-section">
@@ -37,7 +37,7 @@ const SuggestedRecipesSection = () => {
         ))}
       </div>
       <div className="suggested-buttons-container fade-in" style={{ animationDelay: `${5 * 0.1}s` }}>
-        <button className="suggested-button" onClick={() => console.log("REFRESH")}>I don't like these</button>
+        <button className="suggested-button" onClick={() =>     dispatch(callOpenAI(searchQuery) as any)}>I don't like these</button>
         <button className="suggested-button" onClick={() => dispatch(clearRecipesList())}>Clear search</button>
       </div>
     </div>
