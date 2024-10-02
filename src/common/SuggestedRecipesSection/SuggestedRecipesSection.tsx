@@ -16,21 +16,27 @@ const SuggestedRecipesSection = () => {
     <div className="suggested-recipes-section">
       <h1>Suggested recipes</h1>
       <div className="suggested-recipes-cards-container">
-        {recipesList.map((recipe) => (
-          <RecipeCard
-            key={`${recipe.title + recipe.time + recipe.ingredients[0]}`}
-            title={recipe.title}
-            time={recipe.time}
-            ingredients={recipe.ingredients}
-            instructions={recipe.instructions}
-            onClick={() => {
-              dispatch(setCurrentRecipe(recipe));
-              navigate("recipe");
-            }}
-          />
+        {recipesList.map((recipe, index) => (
+          <div
+            className="fade-in"
+            style={{ animationDelay: `${index * 0.1}s` }}
+            key={recipe.title}
+          >
+            <RecipeCard
+              key={`${recipe.title + recipe.time + recipe.ingredients[0]}`}
+              title={recipe.title}
+              time={recipe.time}
+              ingredients={recipe.ingredients}
+              instructions={recipe.instructions}
+              onClick={() => {
+                dispatch(setCurrentRecipe(recipe));
+                navigate("recipe");
+              }}
+            />
+          </div>
         ))}
       </div>
-      <div className="suggested-buttons-container">
+      <div className="suggested-buttons-container fade-in" style={{ animationDelay: `${5 * 0.1}s` }}>
         <button className="suggested-button" onClick={() => console.log("REFRESH")}>I don't like these</button>
         <button className="suggested-button" onClick={() => dispatch(clearRecipesList())}>Clear search</button>
       </div>

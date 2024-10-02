@@ -33,18 +33,24 @@ const FavoritesSection = () => {
       <h1>Favorites</h1>
       <div className="favorites-recipes-cards-container">
         {favorites.length > 0 ? (
-          favorites.map((recipe) => (
-            <RecipeCard
+          favorites.map((recipe, index) => (
+            <div
+              className="fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
               key={recipe.title}
-              title={recipe.title}
-              time={recipe.time}
-              ingredients={recipe.ingredients}
-              instructions={recipe.instructions}
-              onClick={() => {
-                dispatch(setCurrentRecipe(recipe));
-                navigate(`/recipe`);
-              }}
-            />
+            >
+              <RecipeCard
+                key={recipe.title}
+                title={recipe.title}
+                time={recipe.time}
+                ingredients={recipe.ingredients}
+                instructions={recipe.instructions}
+                onClick={() => {
+                  dispatch(setCurrentRecipe(recipe));
+                  navigate(`/recipe`);
+                }}
+              />
+            </div>
           ))
         ) : (
           <p>No favorites saved yet.</p>

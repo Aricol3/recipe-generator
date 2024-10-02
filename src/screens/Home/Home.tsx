@@ -44,7 +44,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="content-container">
+      <div className="content-container fade-in">
         <SearchBar onSearch={onSearch} />
         {renderContent()}
       </div>

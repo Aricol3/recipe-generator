@@ -29,7 +29,7 @@ const Recipe = () => {
   };
 
   return (
-    <div className="recipe-container">
+    <div className="recipe-container fade-in">
       <div className="recipe-left">
         <div className="recipe-image-placeholder">Image</div>
         <div className="recipe-title-time">
