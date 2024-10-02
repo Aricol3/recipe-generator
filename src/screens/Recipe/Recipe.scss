@@ -76,6 +76,11 @@
     flex-direction: column;
   }
 
+  .recipe-left {
+    position: relative;
+  }
+
+
   .recipe-left, .recipe-right {
     width: 85%;
     margin: auto;
