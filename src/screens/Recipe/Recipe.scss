@@ -2,19 +2,19 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 20px;
-  font-family: Arial, sans-serif;
-  gap: 20px; /* Adds spacing between the left and right sections */
+  margin-top: 4rem;
+  gap: 5rem;
 }
 
 .recipe-left {
-  width: 35%; /* Image and title section takes up 35% of the container width */
+  margin-left: auto;
+  width: 35%;
 }
 
 .recipe-right {
-  width: 60%; /* Ingredients and instructions section takes up 60% of the container width */
+  width: 50%;
   display: flex;
-  flex-direction: column; /* Stacks ingredients and instructions vertically */
+  flex-direction: column;
 }
 
 .recipe-image-placeholder {
@@ -26,17 +26,28 @@
   justify-content: center;
   color: #ccc;
   font-size: 1.5rem;
-  margin-bottom: 20px; /* Space between image and title */
+  margin-bottom: 20px;
 }
 
 .recipe-title-time h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin: 0;
 }
 
 .recipe-title-time p {
   font-size: 1.2rem;
   color: gray;
+}
+
+.recipe-title-time {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipe-heart-container {
+  width: 1.8rem;
+  align-self: center;
 }
 
 .recipe-ingredients h2, .recipe-instructions h2 {
@@ -53,21 +64,21 @@
   line-height: 1.6;
 }
 
-/* Mobile Styles */
 @media (max-width: 768px) {
   .recipe-container {
-    flex-direction: column; /* Stack everything vertically on mobile */
+    flex-direction: column;
   }
 
   .recipe-left, .recipe-right {
-    width: 100%; /* Full width on mobile */
+    width: 85%;
+    margin: auto;
   }
 
   .recipe-right {
-    flex-direction: column; /* Ensure ingredients and instructions are stacked */
+    flex-direction: column;
   }
 
   .recipe-image-placeholder {
-    height: 200px; /* Reduce image size on mobile */
+    height: 200px;
   }
 }

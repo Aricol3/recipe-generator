@@ -33,9 +33,11 @@ const Home = () => {
       );
     }
 
-    if (!recipesList) {
+    if (!recipesList || recipesList.length === 0) {
+      console.log("DA");
       return <FavoritesSection />;
     } else {
+      console.log("NU");
       return <SuggestedRecipesSection />;
     }
   };

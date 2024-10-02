@@ -43,19 +43,25 @@ export const callOpenAI = createAsyncThunk(
   }
 );
 
+interface IRecipe {
+  title: string;
+  time: string;
+  ingredients: string[];
+  instructions: string;
+}
+
 interface IRecipesState {
-  recipesList: any;
-  currentRecipe: any;
-  isLoading: boolean;
-  error: string | null;
+  recipesList: IRecipe[];
+  currentRecipe: IRecipe | null;
+  favorites: IRecipe[];
 }
 
 const initialState: IRecipesState = {
-  recipesList: "",
-  currentRecipe: "",
-  isLoading: false,
-  error: null
+  recipesList: [],
+  currentRecipe: null,
+  favorites: []
 };
+
 
 export const recipesSlice = createSlice({
   name: "recipes",
@@ -64,9 +70,32 @@ export const recipesSlice = createSlice({
     setCurrentRecipe: (state, action: PayloadAction<any>) => {
       state.currentRecipe = action.payload;
     },
-    clearRecipesList:(state) => {
+    clearRecipesList: (state) => {
       state.recipesList = initialState.recipesList;
     },
+    loadFavoritesFromLocalStorage: (state) => {
+      const savedRecipes: IRecipe[] = [];
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith("recipe_")) {
+          const recipe = localStorage.getItem(key);
+          if (recipe) {
+            savedRecipes.push(JSON.parse(recipe));
+          }
+        }
+      }
+
+      state.favorites = savedRecipes;
+    },
+    addFavorite: (state, action: PayloadAction<IRecipe>) => {
+      state.favorites.push(action.payload);
+      localStorage.setItem(`recipe_${action.payload.title}`, JSON.stringify(action.payload));
+    },
+    removeFavorite: (state, action: PayloadAction<string>) => {
+      state.favorites = state.favorites.filter(recipe => recipe.title !== action.payload);
+      localStorage.removeItem(`recipe_${action.payload}`);
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -85,6 +114,6 @@ export const recipesSlice = createSlice({
   }
 });
 
-export const { setCurrentRecipe, clearRecipesList } = recipesSlice.actions;
+export const { setCurrentRecipe, clearRecipesList, loadFavoritesFromLocalStorage, addFavorite, removeFavorite } = recipesSlice.actions;
 
 export default recipesSlice.reducer;

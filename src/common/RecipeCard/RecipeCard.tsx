@@ -1,35 +1,29 @@
 import "./RecipeCard.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeartButton from "../HeartButton/HeartButton";
 import placeholderIMG from "../../assets/placeholder-image.jpg";
+import { useFavorites } from "../../hooks/useFavorites";
+import { useSelector } from "react-redux";
 
-const RecipeCard = ({ title, time, ingredients, instructions, onClick, isActive = false, onHeartClick }) => {
-  const [active, setActive] = useState(isActive);
+const RecipeCard = ({ title, time, ingredients, instructions, onClick, isActive = false}) => {
+  const favorites = useSelector((state) => state.recipes.favorites);
+  const [active, setActive] = useState(false);
 
-  const saveRecipeToLocalStorage = () => {
-    const recipe = {
-      title,
-      time,
-      ingredients,
-      instructions,
-    };
-    localStorage.setItem(`recipe_${title}`, JSON.stringify(recipe));
-    console.log(`Recipe '${title}' saved to localStorage`);
-  };
+  useEffect(() => {
+    const isFavorite = favorites.some((recipe) => recipe.title === title);
+    setActive(isFavorite);
+  }, [favorites, title]);
 
-  const removeRecipeFromLocalStorage = () => {
-    localStorage.removeItem(`recipe_${title}`);
-    console.log(`Recipe '${title}' removed from localStorage`);
-  };
+  const { handleAddFavorite, handleRemoveFavorite } = useFavorites();
 
   const handleHeartClick = (e) => {
     e.stopPropagation();
     setActive((prevActive) => {
       if (prevActive) {
-        removeRecipeFromLocalStorage();
-        onHeartClick && onHeartClick();
+        handleRemoveFavorite(title);
       } else {
-        saveRecipeToLocalStorage();
+        const recipe = { title, time, ingredients, instructions };
+        handleAddFavorite(recipe);
       }
       return !prevActive;
     });
