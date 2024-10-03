@@ -1,32 +1,15 @@
 import "./FavoritesSection.scss";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import {
-  loadFavoritesFromLocalStorage,
   setCurrentRecipe
 } from "../../redux-toolkit/slices/recipesSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 
 const FavoritesSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.recipes.favorites);
-
-  const syncFavorites = () => {
-    dispatch(loadFavoritesFromLocalStorage());
-  };
-
-  useEffect(() => {
-    syncFavorites();
-
-    window.addEventListener("storage", syncFavorites);
-
-    return () => {
-      window.removeEventListener("storage", syncFavorites);
-    };
-  }, [dispatch]);
-
 
   return (
     <div className="favorites-section">

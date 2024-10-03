@@ -78,28 +78,14 @@ export const recipesSlice = createSlice({
     clearRecipesList: (state) => {
       state.recipesList = initialState.recipesList;
     },
-    loadFavoritesFromLocalStorage: (state) => {
-      const savedRecipes: IRecipe[] = [];
-
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith("recipe_")) {
-          const recipe = localStorage.getItem(key);
-          if (recipe) {
-            savedRecipes.push(JSON.parse(recipe));
-          }
-        }
-      }
-
-      state.favorites = savedRecipes;
+    setFavorites: (state, action: PayloadAction<any>) => {
+      state.favorites = action.payload;
     },
     addFavorite: (state, action: PayloadAction<IRecipe>) => {
       state.favorites.push(action.payload);
-      localStorage.setItem(`recipe_${action.payload.title}`, JSON.stringify(action.payload));
     },
     removeFavorite: (state, action: PayloadAction<string>) => {
       state.favorites = state.favorites.filter(recipe => recipe.title !== action.payload);
-      localStorage.removeItem(`recipe_${action.payload}`);
     }
   },
   extraReducers: (builder) => {
@@ -123,7 +109,7 @@ export const {
   setSearchQuery,
   setCurrentRecipe,
   clearRecipesList,
-  loadFavoritesFromLocalStorage,
+  setFavorites,
   addFavorite,
   removeFavorite
 } = recipesSlice.actions;
