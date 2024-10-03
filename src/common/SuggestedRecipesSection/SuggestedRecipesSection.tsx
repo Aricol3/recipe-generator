@@ -8,7 +8,6 @@ const SuggestedRecipesSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const recipesList = useSelector((state: any) => state.recipes.recipesList);
-  const searchQuery = useSelector((state: any) => state.recipes.searchQuery);
 
   console.log("THE RECIPES", recipesList);
 
@@ -37,7 +36,7 @@ const SuggestedRecipesSection = () => {
         ))}
       </div>
       <div className="suggested-buttons-container fade-in" style={{ animationDelay: `${5 * 0.1}s` }}>
-        <button className="suggested-button" onClick={() =>     dispatch(callOpenAI(searchQuery) as any)}>I don't like these</button>
+        <button className="suggested-button" onClick={() => dispatch(callOpenAI("I don't like these, refresh") as any)}>I don't like these</button>
         <button className="suggested-button" onClick={() => dispatch(clearRecipesList())}>Clear search</button>
       </div>
     </div>

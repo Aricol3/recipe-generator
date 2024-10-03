@@ -9,32 +9,42 @@ const openai = new OpenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
 
 export const callOpenAI = createAsyncThunk(
   "recipes/fetchRecipes",
-  async (query: string, { rejectWithValue }) => {
-    try {
-      const thread = await openai.beta.threads.create({
-        messages: [
-          {
-            role: "user",
-            content: query
-          }
-        ]
-      });
+  async (query: string, { getState, dispatch, rejectWithValue }) => {
+    const state = getState() as { recipes: IRecipesState };
+    let threadId = state.recipes.threadId;
+    console.log("QUERY", query);
 
-      let run = await openai.beta.threads.runs.create(thread.id, {
+    try {
+      console.log("MY THREAD", threadId);
+      if (!threadId) {
+        const thread = await openai.beta.threads.create();
+        console.log("NEW THREAD CREATED", thread.id, "old: ",threadId);
+        threadId = thread.id;
+        dispatch(setThreadId(threadId));
+      }
+
+      const threadMessage = await openai.beta.threads.messages.create(
+        threadId,
+        { role: "user", content: query }
+      );
+
+      let run = await openai.beta.threads.runs.create(threadId, {
         assistant_id: ASSISTANT_ID
       });
 
       while (run.status !== "completed") {
-        run = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+        run = await openai.beta.threads.runs.retrieve(threadId, run.id);
         console.log("wait ", run.status);
         await sleep(1000);
       }
 
-      const message_response = await openai.beta.threads.messages.list(thread.id);
+      const message_response = await openai.beta.threads.messages.list(threadId);
       const messages = message_response.data;
+      console.log("ALL MESSAGES", messages);
 
       const latest_message = messages[0];
       const parsedResponse = JSON.parse(latest_message.content[0].text.value);
+      console.log("RESPONSE", parsedResponse);
       return parsedResponse;
     } catch (error) {
       console.error("Error in OpenAI API call", error);
@@ -42,6 +52,7 @@ export const callOpenAI = createAsyncThunk(
     }
   }
 );
+
 
 interface IRecipe {
   title: string;
@@ -51,24 +62,32 @@ interface IRecipe {
 }
 
 interface IRecipesState {
+  threadId: string;
   searchQuery: string;
   recipesList: IRecipe[];
   currentRecipe: IRecipe | null;
   favorites: IRecipe[];
+  isLoading: boolean;
+  error: string | null;
 }
 
 const initialState: IRecipesState = {
+  threadId: "",
   searchQuery: "",
   recipesList: [],
   currentRecipe: null,
-  favorites: []
+  favorites: [],
+  isLoading: false,
+  error: null
 };
-
 
 export const recipesSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
+    setThreadId: (state, action: PayloadAction<any>) => {
+      state.threadId = action.payload;
+    },
     setSearchQuery: (state, action: PayloadAction<any>) => {
       state.searchQuery = action.payload;
     },
@@ -106,6 +125,7 @@ export const recipesSlice = createSlice({
 });
 
 export const {
+  setThreadId,
   setSearchQuery,
   setCurrentRecipe,
   clearRecipesList,
