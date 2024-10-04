@@ -1,18 +1,16 @@
 import "./Recipe.scss";
-import { useSelector } from "react-redux";
 import HeartButton from "../../common/HeartButton/HeartButton";
-import { useFavorites } from "../../hooks/useFavorites";
-import { useEffect, useState } from "react";
 import { useRecipe } from "../../hooks/useRecipe";
+import placeholderIMG from "../../assets/placeholder-image.webp";
 
 const Recipe = () => {
-  const {currentRecipe, isFavorite, handleHeartClick} = useRecipe();
+  const {currentRecipe, photo, isFavorite, handleHeartClick} = useRecipe();
 
   return (
     <div className="recipe-container fade-in">
       <div className="recipe-left">
         <div className="left-container">
-        <div className="recipe-image-placeholder">Image</div>
+        <img className="recipe-image" src={photo ? photo.urls.regular : placeholderIMG} alt="recipe image"/>
         <div className="recipe-title-time">
           <div>
             <h1>{currentRecipe.title}</h1>
