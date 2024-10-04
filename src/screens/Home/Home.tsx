@@ -9,15 +9,7 @@ const Home = () => {
   const { recipesList, isLoading, onSearch } = useHome();
 
   const renderContent = () => {
-    if (isLoading) {
-      return (
-        <div className="spinner-container">
-          <Spinner shouldSpin={isLoading} />
-        </div>
-      );
-    }
-
-    if (!recipesList || recipesList.length === 0) {
+    if ((!recipesList || recipesList.length === 0) && !isLoading) {
       return <FavoritesSection />;
     } else {
       return <SuggestedRecipesSection />;

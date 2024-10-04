@@ -91,6 +91,9 @@ export const recipesSlice = createSlice({
     setSearchQuery: (state, action: PayloadAction<any>) => {
       state.searchQuery = action.payload;
     },
+    setIsLoading: (state, action: PayloadAction<any>) => {
+      state.isLoading = action.payload;
+    },
     setCurrentRecipe: (state, action: PayloadAction<any>) => {
       state.currentRecipe = action.payload;
     },
@@ -127,6 +130,7 @@ export const recipesSlice = createSlice({
 export const {
   setThreadId,
   setSearchQuery,
+  setIsLoading,
   setCurrentRecipe,
   clearRecipesList,
   setFavorites,
