@@ -84,7 +84,6 @@ export const fetchUnsplashPhoto = createAsyncThunk(
   }
 );
 
-
 interface IRecipe {
   title: string;
   time: string;
@@ -118,22 +117,22 @@ export const recipesSlice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
-    setThreadId: (state, action: PayloadAction<any>) => {
+    setThreadId: (state, action: PayloadAction<string>) => {
       state.threadId = action.payload;
     },
-    setSearchQuery: (state, action: PayloadAction<any>) => {
+    setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
-    setIsLoading: (state, action: PayloadAction<any>) => {
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
-    setCurrentRecipe: (state, action: PayloadAction<any>) => {
+    setCurrentRecipe: (state, action: PayloadAction<IRecipe | null>) => {
       state.currentRecipe = action.payload;
     },
     clearRecipesList: (state) => {
       state.recipesList = initialState.recipesList;
     },
-    setFavorites: (state, action: PayloadAction<any>) => {
+    setFavorites: (state, action: PayloadAction<IRecipe[]>) => {
       state.favorites = action.payload;
     },
     addFavorite: (state, action: PayloadAction<IRecipe>) => {
