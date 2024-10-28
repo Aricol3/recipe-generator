@@ -1,6 +1,6 @@
-// webpack.config.js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: "./src/index.tsx",
@@ -10,12 +10,13 @@ module.exports = {
     },
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx"],
-        modules: [path.resolve(__dirname, "src"), "node_modules"]
+        modules: [path.resolve(__dirname, "src"), "node_modules"],
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, "public", "index.html")
-        })
+        }),
+        new Dotenv()
     ],
     module: {
         rules: [

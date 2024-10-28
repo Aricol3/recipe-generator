@@ -3,9 +3,9 @@ import OpenAI from "openai";
 import { sleep } from "openai/core";
 import { normalizeTitle } from "../../utils/normalizeTitle";
 
-const UNSPLASH_ACCESS_KEY = "SfeFdGzY5xvghCk6LgrYMhrgrhg0dwaJXmYb2HQEAuM";
-const API_KEY = "sk-cH8dUilFiSq_43BrJCZNkUdt4bR-ORZFkR1YRVIW1pT3BlbkFJg-YTs1nXZfLpzzlvrdI77xy_fY-anD6YA3W3X8g4kA";
-const ASSISTANT_ID = "asst_ZJFqhmwdrTM4KHo0J1agFxlF";
+const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
+const ASSISTANT_ID = process.env.REACT_APP_ASSISTANT_ID;
 const openai = new OpenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
 
 
