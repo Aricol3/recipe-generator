@@ -1,4 +1,4 @@
-# Recipe Generator App
+# Recipe Generator
 
 A React app recipe generator that retrieves recipes from an OpenAI-powered assistant in JSON format and fetches relevant images from Unsplash. Users can explore various recipes, view images based on recipe titles, and save their favorite recipes locally. The app utilizes Redux Toolkit with persistor for state management and local storage data optimizations.
 
